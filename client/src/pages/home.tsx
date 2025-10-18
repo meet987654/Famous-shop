@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MessageCircle, Facebook, MapPin, Clock, ShoppingBag, Users, Heart, Moon, Sun, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import heroImage from "@assets/stock_images/professional_clean_r_2a8eff6e.jpg";
+import heroImage from "@assets/stock_images/clothing_store_displ_8a16cec3.jpg";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
