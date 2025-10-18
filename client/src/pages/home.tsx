@@ -137,50 +137,97 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image with Parallax Effect */}
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-300"
           style={{ backgroundImage: `url(${heroImage})` }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/60"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/40"></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Heart className="h-4 w-4" />
-            Trusted Family Service Since Years
+        {/* Enhanced Multi-layer Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background/85 to-accent/15"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-transparent"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.3)_100%)]"></div>
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center z-10">
+          {/* Badge with Animation */}
+          <div className="inline-flex items-center gap-2 bg-primary/15 backdrop-blur-sm border border-primary/20 text-primary px-5 py-2.5 rounded-full text-sm font-medium mb-8 shadow-lg animate-fade-in">
+            <Heart className="h-4 w-4 animate-pulse" />
+            <span>Trusted Family Service Since Years</span>
           </div>
           
-          <h1 className="font-['Poppins'] text-5xl md:text-6xl lg:text-7xl font-semibold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            FAMOUS
-          </h1>
-          <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground/90 mb-4">
+          {/* Main Heading with Enhanced Typography */}
+          <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h1 className="font-['Poppins'] text-6xl md:text-7xl lg:text-8xl font-bold mb-2 bg-gradient-to-r from-primary via-foreground to-accent bg-clip-text text-transparent drop-shadow-2xl leading-tight">
+              FAMOUS
+            </h1>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+              <ShoppingBag className="h-6 w-6 text-primary" />
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+            </div>
+          </div>
+          
+          {/* Subtitle with Enhanced Styling */}
+          <p className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground mb-5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             The Family Undergarment Shop
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+          
+          {/* Description with Better Contrast */}
+          <p className="text-base md:text-lg lg:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed font-medium animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             Quality undergarments for the whole family. We provide comfortable, durable products with trusted service you can count on.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Enhanced CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <Button 
               size="lg"
-              className="text-base px-8"
+              className="text-base px-10 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               onClick={() => scrollToSection('contact')}
               data-testid="button-hero-contact"
             >
               <MessageCircle className="mr-2 h-5 w-5" />
-              Contact Us
+              Contact Us Now
             </Button>
             <Button 
               size="lg"
               variant="outline"
-              className="text-base px-8 bg-background/50 backdrop-blur"
+              className="text-base px-10 py-6 bg-background/70 backdrop-blur-md border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               onClick={() => scrollToSection('products')}
               data-testid="button-hero-products"
             >
               <ShoppingBag className="mr-2 h-5 w-5" />
               View Products
             </Button>
+          </div>
+          
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap items-center justify-center gap-8 mt-16 text-sm text-foreground/70 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-primary" />
+              <span className="font-medium">Family Owned</span>
+            </div>
+            <div className="w-px h-4 bg-border"></div>
+            <div className="flex items-center gap-2">
+              <Heart className="h-5 w-5 text-accent" />
+              <span className="font-medium">Quality Guaranteed</span>
+            </div>
+            <div className="w-px h-4 bg-border"></div>
+            <div className="flex items-center gap-2">
+              <ShoppingBag className="h-5 w-5 text-primary" />
+              <span className="font-medium">Wide Selection</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-foreground/30 rounded-full p-1">
+            <div className="w-1.5 h-2 bg-foreground/30 rounded-full mx-auto animate-pulse"></div>
           </div>
         </div>
       </section>
