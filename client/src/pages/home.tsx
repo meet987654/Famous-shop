@@ -1,0 +1,521 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Mail, Phone, MessageCircle, Facebook, MapPin, Clock, ShoppingBag, Users, Heart, Moon, Sun, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import heroImage from "@assets/stock_images/professional_clean_r_2a8eff6e.jpg";
+
+export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const isDark = localStorage.getItem('theme') === 'dark';
+    setDarkMode(isDark);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMobileMenuOpen(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-4">
+            <button 
+              onClick={() => scrollToSection('hero')}
+              className="font-['Poppins'] text-xl md:text-2xl font-semibold text-primary hover-elevate active-elevate-2 px-3 py-1 rounded-md -ml-3"
+              data-testid="link-home"
+            >
+              FAMOUS
+            </button>
+            
+            <nav className="hidden md:flex items-center gap-1">
+              <Button 
+                variant="ghost" 
+                onClick={() => scrollToSection('about')}
+                data-testid="link-about"
+              >
+                About
+              </Button>
+              <Button 
+                variant="ghost" 
+                onClick={() => scrollToSection('products')}
+                data-testid="link-products"
+              >
+                Products
+              </Button>
+              <Button 
+                variant="ghost" 
+                onClick={() => scrollToSection('contact')}
+                data-testid="link-contact"
+              >
+                Contact
+              </Button>
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={() => scrollToSection('contact')}
+                className="hidden sm:inline-flex"
+                data-testid="button-contact-header"
+              >
+                Contact Us
+              </Button>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={toggleTheme}
+                data-testid="button-theme-toggle"
+              >
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="md:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                data-testid="button-mobile-menu"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
+          </div>
+          
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t py-4">
+              <nav className="flex flex-col gap-2">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => scrollToSection('about')}
+                  className="justify-start"
+                  data-testid="link-mobile-about"
+                >
+                  About
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => scrollToSection('products')}
+                  className="justify-start"
+                  data-testid="link-mobile-products"
+                >
+                  Products
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => scrollToSection('contact')}
+                  className="justify-start"
+                  data-testid="link-mobile-contact"
+                >
+                  Contact
+                </Button>
+              </nav>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section id="hero" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/40"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Heart className="h-4 w-4" />
+            Trusted Family Service Since Years
+          </div>
+          
+          <h1 className="font-['Poppins'] text-5xl md:text-6xl lg:text-7xl font-semibold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            FAMOUS
+          </h1>
+          <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground/90 mb-4">
+            The Family Undergarment Shop
+          </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+            Quality undergarments for the whole family. We provide comfortable, durable products with trusted service you can count on.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button 
+              size="lg"
+              className="text-base px-8"
+              onClick={() => scrollToSection('contact')}
+              data-testid="button-hero-contact"
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Contact Us
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="text-base px-8 bg-background/50 backdrop-blur"
+              onClick={() => scrollToSection('products')}
+              data-testid="button-hero-products"
+            >
+              <ShoppingBag className="mr-2 h-5 w-5" />
+              View Products
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-muted/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">About FAMOUS</h2>
+            <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="space-y-8">
+            <p className="text-lg md:text-xl text-center text-muted-foreground leading-relaxed">
+              At FAMOUS, we understand that quality undergarments are essential for every family member's comfort and confidence. Our shop has been serving families with premium quality products, combining durability with affordability.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
+              <Card className="hover-elevate">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">Family Focused</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Products for every family member, from children to adults
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover-elevate">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Heart className="h-6 w-6 text-accent" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">Quality First</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Premium materials and careful selection for lasting comfort
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover-elevate">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <ShoppingBag className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">Trusted Service</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Friendly assistance and guidance for all your needs
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section id="products" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">Our Product Range</h2>
+            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Quality undergarments designed for comfort and durability, available for the entire family
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="hover-elevate overflow-hidden" data-testid="card-category-men">
+              <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <ShoppingBag className="h-10 w-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-2">Men's</h3>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <p className="text-muted-foreground">
+                  Comfortable and durable undergarments designed for men. Quality fabrics that provide all-day comfort and support.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate overflow-hidden" data-testid="card-category-women">
+              <div className="aspect-square bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Heart className="h-10 w-10 text-accent" />
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-2">Women's</h3>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <p className="text-muted-foreground">
+                  Elegant and comfortable undergarments for women. Designed with care for both style and everyday comfort.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate overflow-hidden" data-testid="card-category-children">
+              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/5 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-10 w-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-2">Children's</h3>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <p className="text-muted-foreground">
+                  Soft and gentle undergarments for kids. Safe, comfortable materials perfect for growing children.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">Get In Touch</h2>
+            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We're here to help! Reach out to us through any of these channels
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <Card className="hover-elevate" data-testid="card-contact-email">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Email</h3>
+                <p className="text-sm text-muted-foreground mb-4">Send us a message</p>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                  data-testid="button-email"
+                >
+                  <a href="mailto:info@famousshop.com">
+                    Email Us
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate" data-testid="card-contact-whatsapp">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageCircle className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="font-semibold mb-2">WhatsApp</h3>
+                <p className="text-sm text-muted-foreground mb-4">Chat with us</p>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                  data-testid="button-whatsapp"
+                >
+                  <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                    WhatsApp
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate" data-testid="card-contact-facebook">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Facebook className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Facebook</h3>
+                <p className="text-sm text-muted-foreground mb-4">Follow us</p>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                  data-testid="button-facebook"
+                >
+                  <a href="https://facebook.com/famousshop" target="_blank" rel="noopener noreferrer">
+                    Visit Page
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate" data-testid="card-contact-phone">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="font-semibold mb-2">Phone</h3>
+                <p className="text-sm text-muted-foreground mb-4">Call us directly</p>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                  data-testid="button-phone"
+                >
+                  <a href="tel:+1234567890">
+                    Call Now
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Card data-testid="card-business-hours">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Clock className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Business Hours</h3>
+                    <div className="space-y-1 text-sm text-muted-foreground">
+                      <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                      <p>Sunday: 10:00 AM - 6:00 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card data-testid="card-location">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Visit Our Store</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Visit us in person for personalized service and to see our full product range.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-card border-t py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h3 className="font-['Poppins'] text-xl font-semibold mb-3 text-primary">FAMOUS</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                The Family Undergarment Shop - Quality products for the whole family.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-3">Quick Links</h4>
+              <div className="space-y-2">
+                <button 
+                  onClick={() => scrollToSection('about')}
+                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-footer-about"
+                >
+                  About Us
+                </button>
+                <button 
+                  onClick={() => scrollToSection('products')}
+                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-footer-products"
+                >
+                  Our Products
+                </button>
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-footer-contact"
+                >
+                  Contact Us
+                </button>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-3">Contact</h4>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  info@famousshop.com
+                </p>
+                <p className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  +1 234 567 890
+                </p>
+                <div className="flex gap-2 pt-2">
+                  <Button 
+                    size="icon"
+                    variant="ghost"
+                    asChild
+                    data-testid="button-footer-facebook"
+                  >
+                    <a href="https://facebook.com/famousshop" target="_blank" rel="noopener noreferrer">
+                      <Facebook className="h-5 w-5" />
+                    </a>
+                  </Button>
+                  <Button 
+                    size="icon"
+                    variant="ghost"
+                    asChild
+                    data-testid="button-footer-whatsapp"
+                  >
+                    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                      <MessageCircle className="h-5 w-5" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} FAMOUS: The Family Undergarment Shop. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
