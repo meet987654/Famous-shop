@@ -493,8 +493,18 @@ export default function Home() {
                   <div>
                     <h3 className="font-semibold mb-2">Visit Our Store</h3>
                     <p className="text-sm text-muted-foreground">
+                      Empire Plaza, L 3, Sardar Patel Marg, Hirachand Nagar, Bardoli, Gujarat 394601.
+                      <br />
                       Visit us in person for personalized service and to see our full product range.
                     </p>
+                    <a
+                      href="https://maps.app.goo.gl/m5WSjxgR8ePMiAKS8"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline text-sm mt-2 inline-block"
+                    >
+                      Open in Google Maps
+                    </a>
                   </div>
                 </div>
               </CardContent>
