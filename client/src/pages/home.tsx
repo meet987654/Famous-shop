@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, MessageCircle, Facebook, MapPin, Clock, ShoppingBag, Users, Heart, Moon, Sun, Menu, X } from "lucide-react";
+import { Mail, Phone, MessageCircle, Facebook, Instagram, MapPin, Clock, ShoppingBag, Users, Heart, Moon, Sun, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@assets/stock_images/clothing_store_displ_8a16cec3.jpg";
 
@@ -360,14 +360,14 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
             <Card className="hover-elevate" data-testid="card-contact-email">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">Email</h3>
-                <p className="text-sm text-muted-foreground mb-4">Send us a message</p>
+                <p className="text-sm text-muted-foreground mb-4 break-words">Send us a message</p>
                 <Button 
                   variant="outline"
                   size="sm"
@@ -375,7 +375,7 @@ export default function Home() {
                   className="w-full"
                   data-testid="button-email"
                 >
-                  <a href="mailto:info@famousshop.com">
+                  <a href="mailto:famousundergarmentbardoli@gmail.com">
                     Email Us
                   </a>
                 </Button>
@@ -396,8 +396,29 @@ export default function Home() {
                   className="w-full"
                   data-testid="button-whatsapp"
                 >
-                  <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/919638349438" target="_blank" rel="noopener noreferrer">
                     WhatsApp
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-elevate" data-testid="card-contact-instagram">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Instagram className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Instagram</h3>
+                <p className="text-sm text-muted-foreground mb-4">Follow us</p>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                  data-testid="button-instagram"
+                >
+                  <a href="https://www.instagram.com/famous_undergarment_bardoli?igsh=MWZtdncxeXYxYXZkNw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                    Visit Profile
                   </a>
                 </Button>
               </CardContent>
@@ -405,8 +426,8 @@ export default function Home() {
             
             <Card className="hover-elevate" data-testid="card-contact-facebook">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Facebook className="h-6 w-6 text-primary" />
+                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Facebook className="h-6 w-6 text-accent" />
                 </div>
                 <h3 className="font-semibold mb-2">Facebook</h3>
                 <p className="text-sm text-muted-foreground mb-4">Follow us</p>
@@ -417,7 +438,7 @@ export default function Home() {
                   className="w-full"
                   data-testid="button-facebook"
                 >
-                  <a href="https://facebook.com/famousshop" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/share/1N5CGyrvMQ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
                     Visit Page
                   </a>
                 </Button>
@@ -426,8 +447,8 @@ export default function Home() {
             
             <Card className="hover-elevate" data-testid="card-contact-phone">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-6 w-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">Phone</h3>
                 <p className="text-sm text-muted-foreground mb-4">Call us directly</p>
@@ -438,7 +459,7 @@ export default function Home() {
                   className="w-full"
                   data-testid="button-phone"
                 >
-                  <a href="tel:+1234567890">
+                  <a href="tel:+919638349438">
                     Call Now
                   </a>
                 </Button>
@@ -453,11 +474,10 @@ export default function Home() {
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <Clock className="h-5 w-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-semibold mb-2">Business Hours</h3>
                     <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
-                      <p>Sunday: 10:00 AM - 6:00 PM</p>
+                      <p>Daily: 9:30 AM - 8:00 PM</p>
                     </div>
                   </div>
                 </div>
@@ -524,22 +544,32 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-3">Contact</h4>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" />
-                  info@famousshop.com
+                <p className="flex items-start gap-2">
+                  <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span className="break-all">famousundergarmentbardoli@gmail.com</span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" />
-                  +1 234 567 890
+                  <Phone className="h-4 w-4 flex-shrink-0" />
+                  <span>9638349438</span>
                 </p>
-                <div className="flex gap-2 pt-2">
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <Button 
+                    size="icon"
+                    variant="ghost"
+                    asChild
+                    data-testid="button-footer-instagram"
+                  >
+                    <a href="https://www.instagram.com/famous_undergarment_bardoli?igsh=MWZtdncxeXYxYXZkNw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                      <Instagram className="h-5 w-5" />
+                    </a>
+                  </Button>
                   <Button 
                     size="icon"
                     variant="ghost"
                     asChild
                     data-testid="button-footer-facebook"
                   >
-                    <a href="https://facebook.com/famousshop" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/share/1N5CGyrvMQ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
                       <Facebook className="h-5 w-5" />
                     </a>
                   </Button>
@@ -549,7 +579,7 @@ export default function Home() {
                     asChild
                     data-testid="button-footer-whatsapp"
                   >
-                    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/919638349438" target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="h-5 w-5" />
                     </a>
                   </Button>
