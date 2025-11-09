@@ -1,69 +1,89 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import cors from "cors";
+import helmet from "helmet";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+import { createServer } from "http";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
+const server = createServer(app);
+const isProduction = process.env.NODE_ENV === "production";
+
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: false  // Disable CSP for this demo
+}));
+
+app.use(cors({
+  origin: isProduction ? process.env.CORS_ORIGIN || false : true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
+// Request logging middleware
+app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
-  const path = req.path;
+  const reqPath = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
   const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
+  res.json = function (bodyJson: any) {
     capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
+    return originalResJson.call(res, bodyJson);
   };
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+    if (reqPath.startsWith("/api")) {
+      let logMessage = `${req.method} ${reqPath} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+        logMessage += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
 
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
+      if (logMessage.length > 80) {
+        logMessage = logMessage.slice(0, 79) + "…";
       }
-
-      log(logLine);
+      
+      log(logMessage);
     }
   });
-
   next();
 });
 
-(async () => {
-  const server = await registerRoutes(app);
+// Register API routes
+registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
+if (isProduction) {
+  // Serve static files in production
+  app.use(express.static(resolve(__dirname, "../dist/client")));
+  
+  // Serve index.html for client-side routing
+  app.get("*", (req: Request, res: Response) => {
+    res.sendFile(resolve(__dirname, "../dist/client/index.html"));
   });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
-
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '3000', 10);
-  // Use a simple listen signature to remain cross-platform compatible
-  // (Windows doesn't support some advanced options like `reusePort`).
-  server.listen(port, () => {
-    log(`serving on port ${port}`);
+} else {
+  // Development mode with Vite
+  setupVite(app, server).catch((err) => {
+    console.error("Failed to setup Vite:", err);
+    process.exit(1);
   });
-})();
+}
+
+// Error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({
+    error: isProduction ? "Internal Server Error" : err.message
+  });
+});
+
+const port = process.env.PORT || 4300;
+server.listen(port, () => {
+  log(`Server listening on port ${port}`);
+});
